@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "modules",
+  "info": {
+    "singularName": "module",
+    "pluralName": "modules",
+    "displayName": "Module"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "module_name": {
+      "type": "string"
+    },
+    "shortDescription": {
+      "type": "blocks"
+    },
+    "sections": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::section.section"
+    },
+    "section": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::section.section",
+      "inversedBy": "module"
+    },
+    "course": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::course.course",
+      "mappedBy": "module"
+    }
+  }
+}

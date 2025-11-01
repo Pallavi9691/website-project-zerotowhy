@@ -26,6 +26,24 @@
         "videos",
         "audios"
       ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "modules": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::module.module"
+    },
+    "module": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::module.module",
+      "inversedBy": "course"
+    },
+    "videoUrl": {
+      "type": "string"
     }
   }
 }

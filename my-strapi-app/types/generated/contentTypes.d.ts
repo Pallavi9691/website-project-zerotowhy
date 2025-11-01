@@ -522,8 +522,136 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
       'api::course.course'
     > &
       Schema.Attribute.Private;
+    module: Schema.Attribute.Relation<'oneToOne', 'api::module.module'>;
+    modules: Schema.Attribute.Relation<'oneToMany', 'api::module.module'>;
     publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'>;
     title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    videoUrl: Schema.Attribute.String;
+  };
+}
+
+export interface ApiEnquiryEnquiry extends Struct.CollectionTypeSchema {
+  collectionName: 'enquiries';
+  info: {
+    displayName: 'enquiry';
+    pluralName: 'enquiries';
+    singularName: 'enquiry';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.String;
+    interest: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::enquiry.enquiry'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    phone: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiGalleryGallery extends Struct.CollectionTypeSchema {
+  collectionName: 'galleries';
+  info: {
+    displayName: 'Gallery';
+    pluralName: 'galleries';
+    singularName: 'gallery';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::gallery.gallery'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiModuleModule extends Struct.CollectionTypeSchema {
+  collectionName: 'modules';
+  info: {
+    displayName: 'Module';
+    pluralName: 'modules';
+    singularName: 'module';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    course: Schema.Attribute.Relation<'oneToOne', 'api::course.course'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::module.module'
+    > &
+      Schema.Attribute.Private;
+    module_name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    section: Schema.Attribute.Relation<'oneToOne', 'api::section.section'>;
+    sections: Schema.Attribute.Relation<'oneToMany', 'api::section.section'>;
+    shortDescription: Schema.Attribute.Blocks;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSectionSection extends Struct.CollectionTypeSchema {
+  collectionName: 'sections';
+  info: {
+    displayName: 'Section';
+    pluralName: 'sections';
+    singularName: 'section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::section.section'
+    > &
+      Schema.Attribute.Private;
+    longDescription: Schema.Attribute.Blocks;
+    module: Schema.Attribute.Relation<'oneToOne', 'api::module.module'>;
+    publishedAt: Schema.Attribute.DateTime;
+    section_name: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1043,6 +1171,10 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::blog.blog': ApiBlogBlog;
       'api::course.course': ApiCourseCourse;
+      'api::enquiry.enquiry': ApiEnquiryEnquiry;
+      'api::gallery.gallery': ApiGalleryGallery;
+      'api::module.module': ApiModuleModule;
+      'api::section.section': ApiSectionSection;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
